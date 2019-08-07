@@ -2,6 +2,8 @@ package model.dao;
 
 import java.util.List;
 
+import model.entidades.Vendedor;
+
 public interface VendedorDao {
 	
 	void inserir(VendedorDao vd);
@@ -10,9 +12,9 @@ public interface VendedorDao {
 
 	void deletarPorId(Integer id);
 
-	VendedorDao buscarPorId(Integer id);
+	Vendedor buscarPorId(Integer id);
 
-	List<VendedorDao> buscarTudo();
+	List<Vendedor> buscarTudo();
 
 
 }
