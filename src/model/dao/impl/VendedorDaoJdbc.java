@@ -54,18 +54,10 @@ public class VendedorDaoJdbc implements VendedorDao {
 			// Verifica se há registros com o ID solicitado
 			if (rs.next()) {
 				// Cria o Objeto DP e seta as informações do resultset
-				Departamento dp = new Departamento();
-				dp.setId(rs.getInt("DepartmentId"));
-				dp.setNome(rs.getString("DepName"));
-
-				Vendedor vd = new Vendedor();
-				vd.setId(rs.getInt("Id"));
-				vd.setNome(rs.getString("Name"));
-				vd.setEmail(rs.getString("Email"));
-				vd.setSalarioBase(rs.getDouble("BaseSalary"));
-				vd.setDataNascimento(rs.getDate("BirthDate"));
-				vd.setDepartamento(dp);
-				return vd;
+				Departamento dp = instanciarDepartamento(rs);
+				
+				// Cria o Objeto vd e seta as informações do resultset
+				Vendedor vd = instanciarVendedor(rs, dp);
 			}
 
 			// Se não houver registro com o ID informado, retorna NULL
@@ -80,6 +72,24 @@ public class VendedorDaoJdbc implements VendedorDao {
 			DB.closeResultSet(rs);
 		}
 
+	}
+
+	private Vendedor instanciarVendedor(ResultSet rs, Departamento dp) throws SQLException {
+		Vendedor vd = new Vendedor();
+		vd.setId(rs.getInt("Id"));
+		vd.setNome(rs.getString("Name"));
+		vd.setEmail(rs.getString("Email"));
+		vd.setSalarioBase(rs.getDouble("BaseSalary"));
+		vd.setDataNascimento(rs.getDate("BirthDate"));
+		vd.setDepartamento(dp);
+		return vd;
+	}
+
+	private Departamento instanciarDepartamento(ResultSet rs) throws SQLException {
+		Departamento dp = new Departamento();
+		dp.setId(rs.getInt("DepartmentId"));
+		dp.setNome(rs.getString("DepName"));
+		return dp;
 	}
 
 	@Override
