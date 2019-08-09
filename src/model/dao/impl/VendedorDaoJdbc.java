@@ -70,7 +70,29 @@ public class VendedorDaoJdbc implements VendedorDao {
 
 	@Override
 	public void atualizar(Vendedor vd) {
-		// TODO Auto-generated method stub
+		PreparedStatement st = null;
+		try {
+		st = conn.prepareStatement("UPDATE seller SET Name = ?, Email = ?, BirthDate = ?, BaseSalary = ?, DepartmentId = ? "
+						+ "WHERE Id = ?");
+		
+		
+		st.setString(1, vd.getNome());
+		st.setString(2, vd.getEmail());
+		st.setDate(3, new Date(vd.getDataNascimento().getTime()));
+		st.setDouble(4,vd.getSalarioBase());
+		st.setInt(5, vd.getDepartamento().getId());
+		st.setInt(6, vd.getId());
+		
+		st.executeUpdate();
+		
+		} catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		
+		finally {
+			DB.closeStatement(st);
+			DB.closeConnection();
+		}
 
 	}
 
