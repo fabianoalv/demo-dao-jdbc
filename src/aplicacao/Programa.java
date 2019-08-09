@@ -40,11 +40,13 @@ public class Programa {
 //		vendedorDao.inserir(v);
 		
 		
-		vendedor = vendedorDao.buscarPorId(11);
-		vendedor.setNome("Fabiano");
-		vendedor.setEmail("fabiano@gmail.com");
-		vendedor.setSalarioBase(11000.30);
-		vendedorDao.atualizar(vendedor);
+//		vendedor = vendedorDao.buscarPorId(11);
+//		vendedor.setNome("Fabiano");
+//		vendedor.setEmail("fabiano@gmail.com");
+//		vendedor.setSalarioBase(11000.30);
+//		vendedorDao.atualizar(vendedor);
+		
+		vendedorDao.deletarPorId(9);
 	}
 
 }
