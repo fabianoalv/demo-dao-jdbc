@@ -24,6 +24,15 @@ public class Programa {
 		for (Vendedor v : list) {
 			System.out.println(v);
 		}
+		
+		System.out.println("======================================");
+		System.out.println("");
+		
+		list = vendedorDao.buscarTudo();
+		
+		for (Vendedor v : list) {
+			System.out.println(v);
+		}
 
 	}
 
