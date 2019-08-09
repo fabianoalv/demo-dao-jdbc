@@ -1,5 +1,6 @@
 package aplicacao;
 
+import java.util.Date;
 import java.util.List;
 
 import model.dao.DaoFactory;
@@ -25,7 +26,7 @@ public class Programa {
 			System.out.println(v);
 		}
 		
-		System.out.println("======================================");
+		System.out.println("=====================================================================================");
 		System.out.println("");
 		
 		list = vendedorDao.buscarTudo();
@@ -33,7 +34,10 @@ public class Programa {
 		for (Vendedor v : list) {
 			System.out.println(v);
 		}
-
+		
+		System.out.println("####################################################################################");
+		Vendedor v = new Vendedor(null, "Jose", "joao@gmail.com", new Date(), 5000.5, dp);
+		vendedorDao.inserir(v);
 	}
 
 }

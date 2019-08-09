@@ -7,9 +7,9 @@ import model.entidades.Vendedor;
 
 public interface VendedorDao {
 	
-	void inserir(VendedorDao vd);
+	void inserir(Vendedor vd);
 
-	void atualizar(VendedorDao vd);
+	void atualizar(Vendedor vd);
 
 	void deletarPorId(Integer id);
 

@@ -1,10 +1,10 @@
 package model.dao.impl;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,13 +25,51 @@ public class VendedorDaoJdbc implements VendedorDao {
 	}
 
 	@Override
-	public void inserir(VendedorDao vd) {
-		// TODO Auto-generated method stub
+	public void inserir(Vendedor vd) {
+		PreparedStatement st = null;
+		try {
+		st = conn.prepareStatement("INSERT INTO seller " + 
+				"(Name, Email, BirthDate, BaseSalary, DepartmentId) " + 
+				"VALUES " + 
+				"(?, ?, ?, ?, ?) " , PreparedStatement.RETURN_GENERATED_KEYS);
+		
+		
+		st.setString(1, vd.getNome());
+		st.setString(2, vd.getEmail());
+		st.setDate(3, new Date(vd.getDataNascimento().getTime()));
+		st.setDouble(4,vd.getSalarioBase());
+		st.setInt(5, vd.getDepartamento().getId());
+		
+		int linhasAfetadas = st.executeUpdate();
+		
+			if(linhasAfetadas > 0) {
+				ResultSet rs = st.getGeneratedKeys();
+				
+				if(rs.next()) {
+				int d = rs.getInt(1);
+				vd.setId(d);
+				
+				}
+				
+				DB.closeResultSet(rs);
+				
+			} else {
+				throw new DbException("Nenhuma linha foi afetada");
+			}
+		
+		} catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		
+		finally {
+			DB.closeStatement(st);
+			DB.closeConnection();
+		}
 
 	}
 
 	@Override
-	public void atualizar(VendedorDao vd) {
+	public void atualizar(Vendedor vd) {
 		// TODO Auto-generated method stub
 
 	}
